@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -14,5 +14,10 @@ export class ProductsController {
   @Get('/:id')
   public getById(@Param('id') id: string) {
     return this.productsService.getById(id);
+  }
+
+  @Delete('/:id')
+  public deleteById(@Param('id') id: string) {
+    return this.productsService.deleteById(id);
   }
 }

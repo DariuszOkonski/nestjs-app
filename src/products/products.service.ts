@@ -11,4 +11,16 @@ export class ProductsService {
   public getById(id: Product['id']): Product | null {
     return db.products.find((p) => p.id === id);
   }
+
+  public deleteById(id: Product['id']): { success: boolean } {
+    const product = db.products.find((p) => p.id === id);
+
+    if (!product) {
+      return { success: false };
+    }
+
+    db.products = db.products.filter((p) => p.id !== id);
+
+    return { success: true };
+  }
 }
