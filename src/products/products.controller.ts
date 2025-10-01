@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Delete, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { CreateProductDTO } from './dtos/create-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -19,5 +20,10 @@ export class ProductsController {
   @Delete('/:id')
   public deleteById(@Param('id') id: string) {
     return this.productsService.deleteById(id);
+  }
+
+  @Post('/')
+  public create(@Body() productData: CreateProductDTO) {
+    return this.productsService.create(productData);
   }
 }
