@@ -6,7 +6,7 @@ export interface Product {
   description: string;
 }
 
-export interface Orders {
+export interface Order {
   id: string;
   client: string;
   productId: string;
@@ -15,7 +15,7 @@ export interface Orders {
 
 type DBData = {
   products: Product[];
-  orders: Orders[];
+  orders: Order[];
 };
 
 export const db: DBData = {
