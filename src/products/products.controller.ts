@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { Product } from 'src/db';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Param } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -7,9 +7,12 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get('/')
-  public getAll(): Product[] {
+  public getAll() {
     return this.productsService.getAll();
   }
-}
 
-// drugi endpoint
+  @Get('/:id')
+  public getById(@Param('id') id: string) {
+    return this.productsService.getById(id);
+  }
+}
