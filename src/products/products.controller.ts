@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -42,9 +43,11 @@ export class ProductsController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() productData: UpdateProductDTO,
   ) {
+    if (!this.productsService.getById(id)) {
+      throw new NotFoundException('Product not found');
+    }
+
     this.productsService.updateById(id, productData);
     return { success: true };
   }
 }
-
-// przechwytywanie błędów
