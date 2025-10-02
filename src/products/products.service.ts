@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { db, Product } from 'src/db';
 import { v4 as uuidv4 } from 'uuid';

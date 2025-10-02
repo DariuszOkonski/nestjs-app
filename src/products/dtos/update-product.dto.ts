@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Transform } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsString, Length, Min } from 'class-validator';
 
