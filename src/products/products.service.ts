@@ -13,16 +13,8 @@ export class ProductsService {
     return db.products.find((p) => p.id === id);
   }
 
-  public deleteById(id: Product['id']): { success: boolean } {
-    const product = db.products.find((p) => p.id === id);
-
-    if (!product) {
-      return { success: false };
-    }
-
+  public deleteById(id: Product['id']): void {
     db.products = db.products.filter((p) => p.id !== id);
-
-    return { success: true };
   }
 
   public create(productData: Omit<Product, 'id'>): Product {
