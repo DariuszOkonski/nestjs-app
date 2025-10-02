@@ -1,13 +1,16 @@
 /* eslint-disable prettier/prettier */
 import {
+  Body,
   Controller,
   Delete,
   Get,
   NotFoundException,
   Param,
   ParseUUIDPipe,
+  Post,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
+import { CreateOrderDTO } from './dtos/create-order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -38,5 +41,10 @@ export class OrdersController {
     this.ordersService.deleteById(id);
 
     return { success: true };
+  }
+
+  @Post('/')
+  public create(@Body() productData: CreateOrderDTO) {
+    return this.ordersService.create(productData);
   }
 }

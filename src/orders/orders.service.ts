@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { db, Order } from 'src/db';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class OrdersService {
@@ -14,5 +15,12 @@ export class OrdersService {
 
   public deleteById(id: Order['id']): void {
     db.orders = db.orders.filter((o) => o.id !== id);
+  }
+
+  public create(orderData: Omit<Order, 'id'>): Order {
+    const newOrder = { ...orderData, id: uuidv4() };
+    db.orders.push(newOrder);
+
+    return newOrder;
   }
 }
