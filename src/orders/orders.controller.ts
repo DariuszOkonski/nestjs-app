@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -26,5 +27,16 @@ export class OrdersController {
     }
 
     return this.ordersService.getById(id);
+  }
+
+  @Delete('/:id')
+  public deleteByID(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!this.ordersService.getById(id)) {
+      throw new NotFoundException('Order not found');
+    }
+
+    this.ordersService.deleteById(id);
+
+    return { success: true };
   }
 }
