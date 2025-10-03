@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/services/prisma.service';
-import { v4 as uuidv4 } from 'uuid';
 import { Product } from '@prisma/client';
 
 @Injectable()
@@ -24,8 +23,6 @@ export class ProductsService {
     productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<Product> {
     return this.prismaService.product.create({ data: productData });
-
-    // return newProduct;
   }
 
   public updateById(
