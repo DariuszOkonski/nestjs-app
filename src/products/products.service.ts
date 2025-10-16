@@ -15,16 +15,29 @@ export class ProductsService {
     return this.prismaService.product.findUnique({ where: { id } });
   }
 
+  public getAllExtended(): Promise<Product[]> {
+    return this.prismaService.product.findMany({ include: { orders: true } });
+  }
+
+  public getExtendedById(id: Product['id']): Promise<Product | null> {
+    return this.prismaService.product.findUnique({
+      where: { id },
+      include: { orders: true },
+    });
+  }
+
   public deleteById(id: Product['id']): Promise<Product> {
     return this.prismaService.product.delete({ where: { id } });
   }
 
+  // TODO: don't touch
   public create(
     productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<Product> {
     return this.prismaService.product.create({ data: productData });
   }
 
+  // TODO: don't touch
   public updateById(
     id: Product['id'],
     productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>,

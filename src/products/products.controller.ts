@@ -18,6 +18,22 @@ import { UpdateProductDTO } from './dtos/update-product.dto';
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @Get('/extended')
+  public getAllExtended() {
+    return this.productsService.getAllExtended();
+  }
+
+  @Get('/extended/:id')
+  public async getExtendedById(@Param('id', new ParseUUIDPipe()) id: string) {
+    const prod = await this.productsService.getExtendedById(id);
+
+    if (!prod) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return prod;
+  }
+
   @Get('/')
   public getAll() {
     return this.productsService.getAll();
