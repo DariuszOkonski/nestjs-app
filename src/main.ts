@@ -14,4 +14,3 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
-// Tworzymy serwis do obsługi Prismy
