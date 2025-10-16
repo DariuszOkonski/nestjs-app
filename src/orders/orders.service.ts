@@ -12,7 +12,10 @@ export class OrdersService {
   }
 
   public getById(id: Order['id']): Promise<Order | null> {
-    return this.prismaService.order.findUnique({ where: { id } });
+    return this.prismaService.order.findUnique({
+      where: { id },
+      include: { product: true },
+    });
   }
 
   public deleteById(id: Order['id']): Promise<Order> {
