@@ -36,25 +36,37 @@ function getProducts() {
   ];
 }
 
+function getClients() {
+  return [
+    {
+      id: 'b9e18c0c-500f-4c8e-8332-854e47dad59a',
+      name: 'John Rambo',
+      address: 'Gliwice',
+    },
+    {
+      id: '9a383ef2-28e4-43f8-b062-ca1696682c26',
+      name: 'Johnny Mnemonic',
+      address: 'Zabrze',
+    },
+  ];
+}
+
 function getOrders() {
   return [
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17260',
-      client: 'John Doe',
-      address: '123 Main Street, London',
       productId: 'fd105551-0f0d-4a9f-bc41-c559c8a17256',
+      clientId: 'b9e18c0c-500f-4c8e-8332-854e47dad59a',
     },
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17261',
-      client: 'Jane Doe',
-      address: '123 Main Street, London',
       productId: 'fd105551-0f0d-4a9f-bc41-c559c8a17256',
+      clientId: 'b9e18c0c-500f-4c8e-8332-854e47dad59a',
     },
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17262',
-      client: 'Thomas Jefferson',
-      address: 'Baker Street 12B, New York',
       productId: '01c7599d-318b-4b9f-baf7-51f3a936a2d4',
+      clientId: '9a383ef2-28e4-43f8-b062-ca1696682c26',
     },
   ];
 }
@@ -67,12 +79,21 @@ async function seed() {
   );
 
   await Promise.all(
-    getOrders().map(({ productId, ...orderData }) => {
+    getClients().map((client) => {
+      return db.client.create({ data: client });
+    }),
+  );
+
+  await Promise.all(
+    getOrders().map(({ productId, clientId, ...orderData }) => {
       return db.order.create({
         data: {
           ...orderData,
           product: {
             connect: { id: productId },
+          },
+          client: {
+            connect: { id: clientId },
           },
         },
       });

@@ -14,3 +14,9 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+
+// for migration run:
+// npx prisma migrate dev --name add-product-order-relation
+// npx prisma migrate dev --name add-ondelete-for-order
+// npx prisma migrate dev --name add-client
+//  npx prisma migrate dev --name add-product-order-relation add-client-order-relation
